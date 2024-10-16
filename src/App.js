@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import TokoList from "./components/TokoList";
+import Login from "./components/Login";
 
-function App() {
+const App = () => {
+  const [token, setToken] = useState(null);
+
+  const handleLogin = (token) => {
+    setToken(token);
+  };
+
+  const handleLogout = () => {
+    setToken(null);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<TokoList />} />
+        <Route path="/login" element={<Login onLogin={handleLogin} />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
